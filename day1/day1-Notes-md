@@ -1,0 +1,145 @@
+full stack developers
+____ _____ __________
+
+fullstack --> frontend +backend
+
+
+
+frontend
+________
+
+Frontend is a visual and intereactive layer of a website or application that users directly
+see and intereact with through a webserver or mobile app.
+
+it is also called the client side because it runs on the users
+device(browser/mobile)
+
+
+Reaposibilities of frontend
+_______________ __ ________
+
+1. Display web pages and user interface(UI)2.
+2. accepts userinput(forms,buttons,search boxes)
+3. validates user input before sending it to the server.
+4. calls backend API to fetch or send data .
+5. display the response received from baackend.
+6. provides animations and interactive effects.
+   by preparing frontend layer we are using some tech like html,css,js.bootstrap.
+
+Bakend
+______
+
+backend is a server side part of an application .
+users cannot see it directly , but it performs all the business logic,security,data processing,and database operators.
+
+it acts as the brain of the application.
+
+Responsibilities of Backend
+________________ __ _______
+
+1. process clients request .
+2. implements business logic.
+3. connects with database.
+4. performs crud operations.
+5. authenticates and authorise users.
+6. encrypts passwords and authorize users.
+7. generate reports.
+8. returns responses to the frontend.
+9. we have to some languages to build backend java,.net,php,c,++.
+
+
+API ( Application programming interface)
+___ _____________________________________
+
+API is a set of the rules and protocols that allows two different applications or systems
+ to communicate and exchange dta with out exposing their internaal implementation.
+
+it acts as bridge between the frontend and backend between two different software systems.
+
+
+Advantages of API's
+__________ __ ___ _ 
+
+1. enables communication between different systems.
+2. promotes code reuseability.
+3. platform independent.
+4. faster application development.
+5. supports integration with third-party-services.
+6. improves scalability.
+7. easy to maintain.
+
+
+Storage Areas
+_______ _____
+
+as a part of our applications we required to store data like customer info,billing info, calls info, ..etc. 
+to store these data we require some storage areas.
+
+there are two types of storage areas such as 
+1. Temporary Storage
+_ __________ _______
+
+these are the memory areas where the data will be stored temporarily.
+examples : all JVM memory areas (like heap,stack,methodarea,pc registers,native method stack).
+           once JVM is shutdown all these memory areas will be cleared automatically.
+
+2. Permanent Storage Area
+_ __________ _______ ____
+
+it is also known as persistent storage areas. where data will be stored permanently .
+examples: Filesystems,Databases,Data warehouses...etc
+
+File Management Systems(FMS)
+____ __________ ____________
+
+a file management system is a system where data is stored in files on the operatimng systems.
+each application program must handle its own storage data. retriva and updating . File systems can be provided by the 
+local operating systems.
+files systems are best suitable to store very less amount of information.
+examples: a library management system storing books ina separate text files like books.txt,members.txt...ect.
+
+LImitations of file management systems
+____________ __ ____ ________ ________
+
+1. data redundancy - same data is stored in multiple files.
+2. data redundancy - uodates in one file may not be reflected in another .
+3. poor data security - no proper accessed control.
+4. difficult data retrieval - searching customs programs.
+5. intergrity issues - no constraints(ex : roll number uniqueness)
+6. scalability issues - hard to manage as data grows.
+
+to overcome the above problems in file systems we should go for databses
+
+Database Management System (DBMS)
+________ __________ ______
+a DBMs is a collection programmes that enables users to create,manage,and manipulate databases.
+it acts as an interface between user and databases.
+
+Advantages
+__________
+1. we can store huge amount of information in databse.
+2. query language support is available for every databses and hence we perform database operators
+   easily.
+3. to access data present in the databse. compulsory username and password must be required hence data is 
+    secured.
+4. inside databade data will be stored in form of tables. while developing database table schemas , databse
+   admin follows various normalization techniques and we can implement various constraints like unique ker , primary key
+   , forien key,...ect. which prevent data duplication . hence there is no chance off data inconsistaency problems.
+
+Limitations of databases
+___________ __ _________
+
+1. Databases cannot be stored huge amount of information like(terabytes).
+2. databases can be provide supports for only structured data (tabular data or relational data).
+and cannot provide supports for unstructured data or semi-structured data(likes,videos,audios,xml data).
+
+to overcome these problems we should go for some more advanced databases like data warehouses, big sata....etc.
+
+What are the differences between File Management System(FMS) and Database Management systems(DBMS)
+
+
+_______________________________________________________________________________________________________________________________________________________________________
+
+https://tinyurl.com/MySQLPFSDA-04
+
+
