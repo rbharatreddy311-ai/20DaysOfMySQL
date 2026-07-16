@@ -1,0 +1,150 @@
+Day3
+____
+
+
+SQL Identifiers 
+___ ___________
+--> SQL identifiers are names used to identify database objects such as 
+    database names ,tables names, coloumn names, view names, index names, constraints, triggers, stored procedures..ect
+
+
+while we are declaring identifiers we have to follow some rules and regulations .
+
+1. the only allowed characters to define identifiers 1-z,A-Z,0-9,_,$.
+2. must be begin with letter or underscore(_)
+3. we cant declare identifiers with reversed words.
+4. spaces are not considered to declare identifiers.
+5. identifiers are case sensitive.
+6. max length to declare identifiers are 15 characters.
+
+SQL 
+___
+--> SQL (structured query language) , is standardised programming language specially desined for 
+managing and manipulating relational databases. it provides a declarative syntax that allows users to define what data 
+they want to retrieve ,insert ,update or delete without specifying exactly how databases should execute these operations.  
+
+SQL commands
+___ ________
+
+types of SQL commands
+
+DDL (data definition language)
+______________________________
+DDL command are used tovdefine ,create,modifyand delete the structure of a database objects such as databases,tables,views,indexes and constraints./
+
+Create--> by using this command to create a new databases ,tables, indexes .... ect
+Alter--> by using alter command we can modifies the structure of an existing table. like(add ,drop,rename coloumns, modify datatype, add constraints)
+drop--> deletes an entire database object perminently like (databases, tables, view, indexes ..ect)
+truncate--> by using truncatecommand delete all records from a table without deleting the table.
+rename--> it is used to rename the database object names.
+
+DML(Data Manipulation Language)
+______________________________
+manages data stores within database objects.
+
+insert--> by using insert command we can insert some records into a tavble.
+update--> by using the update command we can update some records based on some conditions.
+delete--> by using the delete command we can delete some records based on some conditions.
+lock--> controls concurrency by locking a table restrict accesses from other transactions while it
+        is being modified
+
+DCL(Data Control Language)
+__________________________
+manages permissions and access control on database objects.
+
+grant--> gives specific proviledges or permissions(such select,update,insert,delete,all privilagoues) to a database user or role.
+revoke--> removes previously granted permission from database user or role, restricting their access to database objects.
+
+TCL
+___
+manages transactions to maintain data integrity.
+
+commit--> permanently saves all changes made during the current transactions to the database. making them visible to other users.
+rollback--> undoes/revert changes made during the current transaction back to the last committed state or a savepoint in case of an error.
+
+Savepoint
+_________
+set a temporary market within a transaction to you which you can later rollback ,without undoing the entire transaction.
+
+DQL
+___
+used to fetch or retrieve data from the databases.
+
+select--> retrieves data from 1 or more tables or views based on specified coloumns and conditons. it is the most frequently used in SQL.
+
+
+create
+______
+how to create a database
+
+syntax: CREATE DATABASE database_name;
+
+drop
+____
+how to delete a databse
+syntax: DROP DATABASE database_name;
+
+create table
+_____________
+
+CREATE TABLE TABLE_NAME(
+column-name datatype(size) constraints,
+column-name datatype(size),
+column-name datatype(size),
+-----------
+);
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pfs4               |
+| sys                |
++--------------------+
+5 rows in set (0.13 sec)
+
+mysql> USE PFS4;
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_pfs4 |
++----------------+
+| employees      |
++----------------+
+1 row in set (0.02 sec)
+
+mysql> DROP TABLE EMPLOYEES;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE EMPLOYEES(
+    -> EMPID CHAR(5),
+    -> FNAME VARCHAR(100),
+    -> LNAME VARCHAR(60),
+    -> AGE INT,
+    -> DOJ DATE,
+    -> ADDRESS TINYINT,
+    -> DEPT VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC EMPLOYEES
+    -> ;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| EMPID   | char(5)      | YES  |     | NULL    |       |
+| FNAME   | varchar(100) | YES  |     | NULL    |       |
+| LNAME   | varchar(60)  | YES  |     | NULL    |       |
+| AGE     | int          | YES  |     | NULL    |       |
+| DOJ     | date         | YES  |     | NULL    |       |
+| ADDRESS | tinyint      | YES  |     | NULL    |       |
+| DEPT    | varchar(50)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+ 
