@@ -1,0 +1,183 @@
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pfs4               |
+| sys                |
++--------------------+
+5 rows in set (0.13 sec)
+
+mysql> USE PFS4;
+Database changed
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_pfs4 |
++----------------+
+| employees      |
++----------------+
+1 row in set (0.02 sec)
+
+mysql> DROP TABLE EMPLOYEES;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE EMPLOYEES(
+    -> EMPID CHAR(5),
+    -> FNAME VARCHAR(100),
+    -> LNAME VARCHAR(60),
+    -> AGE INT,
+    -> DOJ DATE,
+    -> ADDRESS TINYINT,
+    -> DEPT VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC EMPLOYEES
+    -> ;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| EMPID   | char(5)      | YES  |     | NULL    |       |
+| FNAME   | varchar(100) | YES  |     | NULL    |       |
+| LNAME   | varchar(60)  | YES  |     | NULL    |       |
+| AGE     | int          | YES  |     | NULL    |       |
+| DOJ     | date         | YES  |     | NULL    |       |
+| ADDRESS | tinyint      | YES  |     | NULL    |       |
+| DEPT    | varchar(50)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+common uses of alter table
+__________________________
+
+1. add a column.
+2. modify an existing column(type,size,default...etc)
+3. drop column.
+4. rename a column or table.
+5. add or remove constraints.
+6. change column order ( in some databases).
+
+syntax : ALTER TABLE table_name <modifications>:
+
+adding a new column to the existing table.
+
+syntax: alter table table_name add column-name datatype(size):
+
+mysql> CREATE TABLE COMPANY_STAFF(
+    ->  EMPID INT,
+    ->  AGE TINYINT,
+    ->  EXPERIENCE SMALLINT,
+    ->  GENDER CHAR(1),
+    ->  EMP_NAME VARCHAR(50),
+    ->  ADDRESS TINYTEXT,
+    ->  SALARY DECIMAL(10,2),
+    ->  DEPARTMENT ENUM('HR','IT','SALES','FINANCE','SUPPORT'),
+    ->  SKILLS SET('JAVA','PYTHON','SQL','EXCEL','COMMUNICATION'),
+    ->  JOINING_DATE DATE
+    ->  );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC COMPANY_STAFF;
++--------------+----------------------------------------------------+------+-----+---------+-------+
+| Field        | Type                                               | Null | Key | Default | Extra |
++--------------+----------------------------------------------------+------+-----+---------+-------+
+| EMPID        | int                                                | YES  |     | NULL    |       |
+| AGE          | tinyint                                            | YES  |     | NULL    |       |
+| EXPERIENCE   | smallint                                           | YES  |     | NULL    |       |
+| GENDER       | char(1)                                            | YES  |     | NULL    |       |
+| EMP_NAME     | varchar(50)                                        | YES  |     | NULL    |       |
+| ADDRESS      | tinytext                                           | YES  |     | NULL    |       |
+| SALARY       | decimal(10,2)                                      | YES  |     | NULL    |       |
+| DEPARTMENT   | enum('HR','IT','SALES','FINANCE','SUPPORT')        | YES  |     | NULL    |       |
+| SKILLS       | set('JAVA','PYTHON','SQL','EXCEL','COMMUNICATION') | YES  |     | NULL    |       |
+| JOINING_DATE | date                                               | YES  |     | NULL    |       |
++--------------+----------------------------------------------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE COMPANY_STAFF ADD EMAIL VARCHAR(30);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF ADD PHONE_NUMBER VARCHAR(15);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF ADD BONUS INT AFTER SALARY;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF ADD STATUS CHAR(5) AFTER DEPARTMENT;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF ADD COMPANY_NAME VARCHAR(20) FIRST;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF ADD QUALIFICATION CHAR(10) AFTER EMP_NAME;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF MODIFY EMP_NAME VARCHAR(100);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF MODIFY SALARY DECIMAL(10,5);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF CHANGE EMP_NAME EMPLOYEE_NAME VARCHAR(50);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF CHANGE JOINING_DATE DATE_OF_JOINING DATE;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF DROP BONUS ;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF DROP PHONE_NUMBER;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE COMPANY_STAFF RENAME TO STAFF_RECORDS;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> ALTER TABLE STAFF_RECORDS RENAME TO COMPANY_STAFF;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ALTER TABLE COMPANY_STAFF ADD LAST_UPDATED VARCHAR(20) AFTER SKILLS;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC COMPANY_STAFF;
++-----------------+----------------------------------------------------+------+-----+---------+-------+
+| Field           | Type                                               | Null | Key | Default | Extra |
++-----------------+----------------------------------------------------+------+-----+---------+-------+
+| COMPANY_NAME    | varchar(20)                                        | YES  |     | NULL    |       |
+| EMPID           | int                                                | YES  |     | NULL    |       |
+| AGE             | tinyint                                            | YES  |     | NULL    |       |
+| EXPERIENCE      | smallint                                           | YES  |     | NULL    |       |
+| GENDER          | char(1)                                            | YES  |     | NULL    |       |
+| EMPLOYEE_NAME   | varchar(50)                                        | YES  |     | NULL    |       |
+| QUALIFICATION   | char(10)                                           | YES  |     | NULL    |       |
+| ADDRESS         | tinytext                                           | YES  |     | NULL    |       |
+| SALARY          | decimal(10,5)                                      | YES  |     | NULL    |       |
+| DEPARTMENT      | enum('HR','IT','SALES','FINANCE','SUPPORT')        | YES  |     | NULL    |       |
+| STATUS          | char(5)                                            | YES  |     | NULL    |       |
+| SKILLS          | set('JAVA','PYTHON','SQL','EXCEL','COMMUNICATION') | YES  |     | NULL    |       |
+| LAST_UPDATED    | varchar(20)                                        | YES  |     | NULL    |       |
+| DATE_OF_JOINING | date                                               | YES  |     | NULL    |       |
+| EMAIL           | varchar(30)                                        | YES  |     | NULL    |       |
++-----------------+----------------------------------------------------+------+-----+---------+-------+
+15 rows in set (0.00 sec)
+
