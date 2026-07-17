@@ -1,0 +1,183 @@
+Day5
+____
+
+DML
+___
+
+1. insert
+_________
+
+syntax : insert into table-name(column-names)values(column-values);
+
+
+mysql> use pfs4;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_pfs4 |
++----------------+
+| codegnan_emp   |
+| company_staff  |
++----------------+
+2 rows in set (0.07 sec)
+
+mysql> ALTER TABLE CODEGNAN_EMP RENAME TO EMPLOYEES;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> DESC EMPLOYEES
+    -> ;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMPID     | char(5)     | YES  |     | NULL    |       |
+| FIRSTNAME | varchar(30) | YES  |     | NULL    |       |
+| LASTNAME  | varchar(50) | YES  |     | NULL    |       |
+| AGE       | int         | YES  |     | NULL    |       |
+| DOJ       | date        | YES  |     | NULL    |       |
+| ADDRESS   | tinyint     | YES  |     | NULL    |       |
+| DEPT      | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDRESS,DEPT)VALUES('E0001','BHARAT','REDDY',27,'2025-01-31',53,'PYTHON');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDRESS,DEPT)VALUES('E0002','SHANKAR','RAO',21,'2025-05-31',52,'PYTHON');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEES(EMPID,FIRSTNAME,LASTNAME,AGE,DOJ,ADDRESS,DEPT)VALUES('E0003','RAAVI','ROHITH',21,'2025-08-9',51,'PYTHON');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT*FROM EMPLOYEES
+    -> ;
++-------+-----------+----------+------+------------+---------+--------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS | DEPT   |
++-------+-----------+----------+------+------------+---------+--------+
+| E0001 | BHARAT    | REDDY    |   27 | 2025-01-31 |      53 | PYTHON |
+| E0002 | SHANKAR   | RAO      |   21 | 2025-05-31 |      52 | PYTHON |
+| E0003 | RAAVI     | ROHITH   |   21 | 2025-08-09 |      51 | PYTHON |
++-------+-----------+----------+------+------------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES
+    -> VALUES
+    -> ('E0004','SALAAR','DEVARATHA',39,'2005-01-31',50,'SHOURYANGA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT*FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+---------+------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT       |
++-------+-----------+-----------+------+------------+---------+------------+
+| E0001 | BHARAT    | REDDY     |   27 | 2025-01-31 |      53 | PYTHON     |
+| E0002 | SHANKAR   | RAO       |   21 | 2025-05-31 |      52 | PYTHON     |
+| E0003 | RAAVI     | ROHITH    |   21 | 2025-08-09 |      51 | PYTHON     |
+| E0004 | SALAAR    | DEVARATHA |   39 | 2005-01-31 |      50 | SHOURYANGA |
++-------+-----------+-----------+------+------------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEES
+    -> VALUES
+    -> ('E0004','SALAAR','DEVARATHA',39,2005-01-31,50,'SHOURYANGA');^C
+mysql> INSERT INTO EMPLOYEES (EMOID,FIRSTNAME,AGE,DOJ,DEPT)
+    -> VALUES
+    -> ('E0005','PEDDI',39,2005-01-31,50,'REDSANDAL WOOD');
+mysql> INSERT INTO EMPLOYEES (EMPID,FIRSTNAME,AGE,DOJ,DEPT)
+    -> VALUES
+    -> ('E0005','PUSHPA',39,'2005-01-31','REDSANDAL WOOD');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT*FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+---------+----------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT           |
++-------+-----------+-----------+------+------------+---------+----------------+
+| E0001 | BHARAT    | REDDY     |   27 | 2025-01-31 |      53 | PYTHON         |
+| E0002 | SHANKAR   | RAO       |   21 | 2025-05-31 |      52 | PYTHON         |
+| E0003 | RAAVI     | ROHITH    |   21 | 2025-08-09 |      51 | PYTHON         |
+| E0004 | SALAAR    | DEVARATHA |   39 | 2005-01-31 |      50 | SHOURYANGA     |
+| E0005 | PUSHPA    | NULL      |   39 | 2005-01-31 |    NULL | REDSANDAL WOOD |
++-------+-----------+-----------+------+------------+---------+----------------+
+5 rows in set (0.00 sec)
+
+UPDATE
+______
+--> 
+syntax : update table-name set column-name=update-value where some condition;
+
+DELETE
+______
+--> 
+syntax : delete from table-name where condition;
+
+mysql> UPDATE EMPLOYEES SET LASTNAME='GARU' WHERE EMPID='E0002';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM EMPLOYEES ;
++-------+-----------+-----------+------+------------+---------+----------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT           |
++-------+-----------+-----------+------+------------+---------+----------------+
+| E0001 | BHARAT    | REDDY     |   27 | 2025-01-31 |      53 | PYTHON         |
+| E0002 | SHANKAR   | GARU      |   21 | 2025-05-31 |      52 | PYTHON         |
+| E0003 | RAAVI     | ROHITH    |   21 | 2025-08-09 |      51 | PYTHON         |
+| E0004 | SALAAR    | DEVARATHA |   39 | 2005-01-31 |      50 | SHOURYANGA     |
+| E0005 | PUSHPA    | NULL      |   39 | 2005-01-31 |    NULL | REDSANDAL WOOD |
++-------+-----------+-----------+------+------------+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT*FROM EMPLOYEES WHERE EMPID='E0002';
++-------+-----------+----------+------+------------+---------+--------+
+| EMPID | FIRSTNAME | LASTNAME | AGE  | DOJ        | ADDRESS | DEPT   |
++-------+-----------+----------+------+------------+---------+--------+
+| E0002 | SHANKAR   | GARU     |   21 | 2025-05-31 |      52 | PYTHON |
++-------+-----------+----------+------+------------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET FIRSTNAME='VEERA',LASTNAME='RAGHAVA',AGE=35,DOJ='2005-01-31',ADDRESS='49' WHERE EMPID='E0002';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+---------+----------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT           |
++-------+-----------+-----------+------+------------+---------+----------------+
+| E0001 | BHARAT    | REDDY     |   27 | 2025-01-31 |      53 | PYTHON         |
+| E0002 | VEERA     | RAGHAVA   |   35 | 2005-01-31 |      49 | PYTHON         |
+| E0003 | RAAVI     | ROHITH    |   21 | 2025-08-09 |      51 | PYTHON         |
+| E0004 | SALAAR    | DEVARATHA |   39 | 2005-01-31 |      50 | SHOURYANGA     |
+| E0005 | PUSHPA    | NULL      |   39 | 2005-01-31 |    NULL | REDSANDAL WOOD |
++-------+-----------+-----------+------+------------+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET DEPT='PYTHON' WHERE EMPID='E0005,;
+    '> UPDATE EMPLOYEES SET DEPT='PYTHON' WHERE EMPID='E0005';
+    '> ^C
+mysql> UPDATE EMPLOYEES SET DEPT='PYTHON' WHERE EMPID='E0005';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEES SET AGE=40 WHERE EMPID='E0004';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+---------+------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT       |
++-------+-----------+-----------+------+------------+---------+------------+
+| E0001 | BHARAT    | REDDY     |   27 | 2025-01-31 |      53 | PYTHON     |
+| E0002 | VEERA     | RAGHAVA   |   35 | 2005-01-31 |      49 | PYTHON     |
+| E0003 | RAAVI     | ROHITH    |   21 | 2025-08-09 |      51 | PYTHON     |
+| E0004 | SALAAR    | DEVARATHA |   40 | 2005-01-31 |      50 | SHOURYANGA |
+| E0005 | PUSHPA    | NULL      |   39 | 2005-01-31 |    NULL | PYTHON     |
++-------+-----------+-----------+------+------------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEES WHERE DEPT='PYTHON';
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> SELECT*FROM EMPLOYEES;
++-------+-----------+-----------+------+------------+---------+------------+
+| EMPID | FIRSTNAME | LASTNAME  | AGE  | DOJ        | ADDRESS | DEPT       |
++-------+-----------+-----------+------+------------+---------+------------+
+| E0004 | SALAAR    | DEVARATHA |   40 | 2005-01-31 |      50 | SHOURYANGA |
++-------+-----------+-----------+------+------------+---------+------------+
+1 row in set (0.00 sec)
