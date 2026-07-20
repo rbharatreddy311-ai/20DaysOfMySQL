@@ -1,0 +1,243 @@
+Day7
+____
+
+TCL (transaction control language)
+___
+
+def
+___
+
+The process of combining all related operations into a single unit and executing them according to the rule " either all 
+operators should be succeed or none should be succeed ". is called transaction.
+
+A transaction is considered a single unit of work and fallows the principle.
+
+"either all or none"
+
+ex: funds transfer
+
+Consider a money transfer process between two accounts.
+
+1. Debit amount from the senders account.
+2. Credit amount into the recievers account
+
+Both operators should be executed as a single transaction.
+
+If the amount is debited from the senders account successfully . But crediting the recovers account fails.
+It may lead to the data inconsistency problems.
+
+There are two types of transactions such as:
+1. local transactions
+2. global transactions
+
+1. Local transactions
+_____________________
+
+In local transactions , all operations of a transaction are executed in the same database.
+
+ex: funds transfer from one account to another account , where both accounts belongs to the same bank.
+
+
+2. global transactions
+______________________
+
+In global transactions , operators of a transactions are executed on different databases.
+
+ex: funds transfer from one account to another account where both accounts are from different banks.
+
+
+Acid properties
+_______________
+
+Atomicity: all or nothing.
+1. Atomicity (All or Nothing)
+
+Atomicity ensures that a transaction is treated as a single unit of work.
+
+If every operation succeeds, the transaction is committed.
+If any operation fails, the entire transaction is rolled back.
+Partial updates are never saved.
+Example
+
+Imagine transferring ₹5,000 from Account A to Account B.
+Transaction Steps:
+
+Deduct ₹5,000 from Account A
+Add ₹5,000 to Account B
+
+If the deduction succeeds but the addition fails due to a server crash, MySQL rolls back the deduction, leaving both accounts unchanged.
+
+Result: Either both operations happen or none happen.
+
+2. Consistency: the database remains in a valid state.
+ Consistency (Maintain Valid Data)
+
+Consistency ensures that every transaction takes the database from one valid state to another.
+
+It guarantees that:
+
+Constraints are not violated.
+Primary keys remain unique.
+Foreign key relationships remain valid.
+Data integrity is preserved.
+Example
+
+Suppose a student's marks cannot exceed 100.
+
+3. Isolation: transaction do not interface with each other.
+ Isolation (Transactions Don't Interfere)
+
+Isolation ensures that multiple transactions running simultaneously do not affect each other.
+
+Each transaction behaves as if it is running alone.
+
+Example
+
+Two users are booking the last available movie ticket.
+
+Without isolation:
+
+User A books the seat.
+User B also books the same seat.
+
+Result:
+
+Two bookings for one seat.
+
+With Isolation:
+
+User A locks the transaction.
+User B waits until User A finishes.
+
+Result:
+
+Only one booking succeeds.
+
+4. durability : committed changes are permanent.
+ Durability (Data Never Gets Lost)
+
+Durability guarantees that once a transaction is committed, it is permanently stored.
+
+Even if:
+
+Power fails
+System crashes
+Server restarts
+
+the committed data remains safe.
+
+Example
+
+An online shopping website confirms:
+
+Commit
+______
+
+IT MEANS THE TRANSACTION HAS BEEN PERMANENTLY DONE.
+
+ROLLBACK
+________
+
+IT MEANS IT GET THE UPDATED DATA BACK IF IT IS UPDATED WRONG.
+
+Commit
+______
+
+
+
+what is locking
+_______________
+
+locking is a mechanism used by the address to control concurrent acess data.
+
+it ensures that multiple users access the same data simultaneously the database maintains consistency,
+integrity,and prevent conflicts.
+
+1. shared lock
+______________
+
+def
+___
+A shared lock allows a transaction to read data.
+multiple transactions can hold a shared lock on the same row.
+no transactions can modify the row until all shared locks are released.
+
+characters
+__________
+read only
+multiple users can read simultaneously 
+blocks updates and deletes.
+
+2. exclusive lock
+_________________
+def
+___ 
+An exclusive lock allows a transaction to modify data.
+while an exclusive lock exists :
+no other transaction can read using a locking read or modify that row.
+only the transaction holding the lock can update/delete the data.
+
+characters:
+___________
+
+used for insert,update,delete.
+only one exclusive lock at a time.
+blocks both reads (locking reads) and writes.
+
+
+
+3. intent lock
+______________
+def
+___
+An intent lock is a table level lock that indicates a transaction intends to place row level
+locks.
+it helps MySQL quickly determines whether a table level lock conflicts with existing row locks.
+users do not usually create intent locks manually. InnoDB manages them automatically.
+
+Real life example
+imagine a library :
+shared lock -> many students can read the same book at the same time.
+exxclusive-> one student borrows the book , so nobody else can read ar borrow it until it is 
+returned.
+intent lock-> the librarian marks that someone is about to read or borrow books from a shelf , helping coorodinates access without checking every book individuality.
+mysql> USE LOCK_DEMO; Database changed
+
+mysql> CREATE TABLE EMPLOYEE -> (
+
+-> EMP_ID INT PRIMARY KEY,
+
+-> EMP_NAME VARCHAR (50),
+
+-> DEPARTMENT VARCHAR(50),
+
+-> SALARY DECIMAL(10,2)
+
+-> );
+
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES
+
+-> (101, 'RAHUL', 'IT', 50000),
+
+-> (102, 'bharat', 'HR', 45000),
+
+-> (103, 'shankar', 'FINANCE', 55000),
+
+-> (104, 'KIRAN', 'TESTING',40000)
+
+-> (105, 'rohit', 'DEVELOPMENT', 60000);
+
+Query OK, 5 rows affected (0.01 sec)
+
+Records: 5 Duplicates: 0 Warnings: 0
+
+mysql> LOCK TABLES EMPLOYEE WRITE; Query OK, 0 rows affected (0.00 sec)
+
+mysql> UNLOCK TABLES;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+            
