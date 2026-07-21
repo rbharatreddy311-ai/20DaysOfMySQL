@@ -1,0 +1,185 @@
+Constraints
+___________
+
+Constraints are the rules applied to the table coloumns in MySQL to ensure that only valid and accurate 
+data os stored in the database.
+
+In simple words:
+constraints = Rules that control the data entered into a table.
+
+Why do we use conastraints?
+___________________________
+
+1. Maintain data integrity.
+2. prevent invalid data integrity.
+3. avoid duplicate records.
+4. ensure relationships between tables.
+5. make the data base reliable and consistent.
+
+
+Different type of constraints
+______________________________
+
+1. not null: does not allow null values.
+
+2. unique : Doesn't allow duplicate values.
+
+3. primary key: it is a combination of unique + not null.
+
+4. composite key: 
+
+5. foreign key: am foreign key is used to link two tables together.
+
+a foreign key is a field or collections of fields in  one table that refers to the primary key in another table.
+
+the table contain in the foreign key is called the child table. and the table containing the candidate key is called 
+as referenced table or parent table.
+
+What are referencial actions?
+_____________________________
+
+referencial actions defines what happens to child table data when parent table data is deleted or updated.
+
+1. on delete cascade
+2. on update cascade
+3. on delete set null;
+4. on update set null; 
+
+6. check:
+7. default:
+
+Operators:
+_________
+mysql> CREATE TABLE Products (
+    ->  id INT,
+    ->  name VARCHAR(100),
+    ->  price DECIMAL(10,2),
+    ->  qty INT
+    ->  );
+Query OK, 0 rows affected (0.18 sec)
+
+mysql>
+mysql>
+mysql> INSERT INTO Products VALUES
+    ->  (1, 'Pen', 10.00, 100),
+    ->  (2, 'Notebook', 25.00, 50),
+    ->  (3, 'Pencil', 5.00, 200),
+    ->  (4, 'Eraser', 3.00, 300),
+    ->  (5, 'Marker', 15.00, 80),
+    ->  (6, 'Scale', 20.00, 150),
+    ->  (7, 'Sharpener', 8.00, 120),
+    ->  (8, 'Geometry Box', 120.00, 40),
+    ->  (9, 'Sketch Pen', 60.00, 75),
+    ->  (10, 'Crayons', 90.00, 55);
+Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select*from products;
++------+--------------+--------+------+
+| id   | name         | price  | qty  |
++------+--------------+--------+------+
+|    1 | Pen          |  10.00 |  100 |
+|    2 | Notebook     |  25.00 |   50 |
+|    3 | Pencil       |   5.00 |  200 |
+|    4 | Eraser       |   3.00 |  300 |
+|    5 | Marker       |  15.00 |   80 |
+|    6 | Scale        |  20.00 |  150 |
+|    7 | Sharpener    |   8.00 |  120 |
+|    8 | Geometry Box | 120.00 |   40 |
+|    9 | Sketch Pen   |  60.00 |   75 |
+|   10 | Crayons      |  90.00 |   55 |
++------+--------------+--------+------+
+10 rows in set (0.00 sec)
+
+mysql> select name,price,price+(price*0.12) as price_with_tax from products;
++--------------+--------+----------------+
+| name         | price  | price_with_tax |
++--------------+--------+----------------+
+| Pen          |  10.00 |        11.2000 |
+| Notebook     |  25.00 |        28.0000 |
+| Pencil       |   5.00 |         5.6000 |
+| Eraser       |   3.00 |         3.3600 |
+| Marker       |  15.00 |        16.8000 |
+| Scale        |  20.00 |        22.4000 |
+| Sharpener    |   8.00 |         8.9600 |
+| Geometry Box | 120.00 |       134.4000 |
+| Sketch Pen   |  60.00 |        67.2000 |
+| Crayons      |  90.00 |       100.8000 |
++--------------+--------+----------------+
+10 rows in set (0.01 sec)
+
+mysql>
+mysql> select name,price,price(price-5) as price_with_discount products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'products' at line 1
+mysql> select name,price,(price-5) as discount from products;
++--------------+--------+----------+
+| name         | price  | discount |
++--------------+--------+----------+
+| Pen          |  10.00 |     5.00 |
+| Notebook     |  25.00 |    20.00 |
+| Pencil       |   5.00 |     0.00 |
+| Eraser       |   3.00 |    -2.00 |
+| Marker       |  15.00 |    10.00 |
+| Scale        |  20.00 |    15.00 |
+| Sharpener    |   8.00 |     3.00 |
+| Geometry Box | 120.00 |   115.00 |
+| Sketch Pen   |  60.00 |    55.00 |
+| Crayons      |  90.00 |    85.00 |
++--------------+--------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select name,price,(price*10) as per_10_units from products;
++--------------+--------+--------------+
+| name         | price  | per_10_units |
++--------------+--------+--------------+
+| Pen          |  10.00 |       100.00 |
+| Notebook     |  25.00 |       250.00 |
+| Pencil       |   5.00 |        50.00 |
+| Eraser       |   3.00 |        30.00 |
+| Marker       |  15.00 |       150.00 |
+| Scale        |  20.00 |       200.00 |
+| Sharpener    |   8.00 |        80.00 |
+| Geometry Box | 120.00 |      1200.00 |
+| Sketch Pen   |  60.00 |       600.00 |
+| Crayons      |  90.00 |       900.00 |
++--------------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select name,qty,(qty/50) as mul_50 from products;
++--------------+------+--------+
+| name         | qty  | mul_50 |
++--------------+------+--------+
+| Pen          |  100 | 2.0000 |
+| Notebook     |   50 | 1.0000 |
+| Pencil       |  200 | 4.0000 |
+| Eraser       |  300 | 6.0000 |
+| Marker       |   80 | 1.6000 |
+| Scale        |  150 | 3.0000 |
+| Sharpener    |  120 | 2.4000 |
+| Geometry Box |   40 | 0.8000 |
+| Sketch Pen   |   75 | 1.5000 |
+| Crayons      |   55 | 1.1000 |
++--------------+------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select name,price,qty,(price*qty) as value_inventory from product;
+ERROR 1146 (42S02): Table 'pfs4.product' doesn't exist
+mysql> select name,price,qty,(price*qty) as value_inventory from products;
++--------------+--------+------+-----------------+
+| name         | price  | qty  | value_inventory |
++--------------+--------+------+-----------------+
+| Pen          |  10.00 |  100 |         1000.00 |
+| Notebook     |  25.00 |   50 |         1250.00 |
+| Pencil       |   5.00 |  200 |         1000.00 |
+| Eraser       |   3.00 |  300 |          900.00 |
+| Marker       |  15.00 |   80 |         1200.00 |
+| Scale        |  20.00 |  150 |         3000.00 |
+| Sharpener    |   8.00 |  120 |          960.00 |
+| Geometry Box | 120.00 |   40 |         4800.00 |
+| Sketch Pen   |  60.00 |   75 |         4500.00 |
+| Crayons      |  90.00 |   55 |         4950.00 |
++--------------+--------+------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql>
+
